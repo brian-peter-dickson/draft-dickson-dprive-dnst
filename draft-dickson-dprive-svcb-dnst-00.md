@@ -1,12 +1,12 @@
 %%%
 title = "Resource Record for Signaling Transport for DNS to Authority Servers"
 abbrev = "DNS Transport"
-docName = "draft-dickson-dprive-svcb-dnst"
+docName = "draft-dickson-dprive-dnst"
 category = "info"
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "draft-dickson-dprive-svcb-dnst-00"
+value = "draft-dickson-dprive-dnst-00"
 stream = "IETF"
 status = "standard"
 
