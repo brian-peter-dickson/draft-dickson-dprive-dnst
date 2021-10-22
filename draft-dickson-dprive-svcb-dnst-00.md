@@ -35,11 +35,8 @@ organization = "GoDaddy"
 
 .# Abstract
 
-This Internet Draft proposes a mechanism for DNS resolvers to discover support for TLS transport to authoritative DNS servers, to validate this indication of support, and to authenticate the TLS certificates involved.
-
-This requires that the name server _names_ are in a DNSSEC signed zone.
-
-This also requires that the delegation of the zone served is protected by [@?I-D.dickson-dnsop-ds-hack], since the NS names are the keys used for discovery of TLS transport support.
+This Internet Draft proposes a service binding for DNS transport types. A new RRTYPE "DNST" is used which is an instance of the SVCB type.
+The service binding includes optional parameters for use of the DoT (DNS over TLS) transport using TCP port 853, and default transports of TCP and UDP on port 53 (DNS).
 
 {mainmatter}
 {{README.md}}
