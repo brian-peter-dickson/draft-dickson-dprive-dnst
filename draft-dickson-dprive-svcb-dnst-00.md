@@ -42,6 +42,21 @@ The service binding includes optional parameters for use of the DoT (DNS over TL
 {{README.md}}
 {backmatter}
 
+
+# Mapping Summary
+
+This table serves as a non-normative summary of the DNST mapping for SVCB.
+
+|                                  |                                        |
+| -------------------------------- | -------------------------------------- |
+| **Mapped scheme**                | "dns"                                  |
+| **RR type**                      | DNST (TBD)                             |
+| **Name prefix**                  | `_dns` for port 53, else `_$PORT._dns` |
+| **Required keys**                | `alpn`                                 |
+| **Automatically Mandatory Keys** | `port`                                 |
+| **Special behaviors**            | TBD                                    |
+
+
 # Acknowledgments
 
 Thanks to everyone who helped create the tools that let everyone use Markdown to create 
