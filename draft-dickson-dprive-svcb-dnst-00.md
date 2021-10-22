@@ -1,6 +1,6 @@
 %%%
-title = "Service Binding for DNS over TLS to Authority Servers"
-abbrev = "Service Binding for ADoT"
+title = "Resource Record for Signaling Transport for DNS to Authority Servers"
+abbrev = "DNS Transport"
 docName = "draft-dickson-dprive-svcb-dnst"
 category = "info"
 
@@ -35,26 +35,12 @@ organization = "GoDaddy"
 
 .# Abstract
 
-This Internet Draft proposes a service binding for DNS transport types. A new RRTYPE "DNST" is used which is an instance of the SVCB type.
-The service binding includes optional parameters for use of the DoT (DNS over TLS) transport using TCP port 853, and default transports of TCP and UDP on port 53 (DNS).
+This Internet Draft proposes an RRTYPE to signal explicit support for transport types for DNS service. This new RRTYPE is "DNST".
+The available transports to signal are TCP and UDP on port 53 (DNS), and DoT (DNS over TLS) transport using TCP port 853.
 
 {mainmatter}
 {{README.md}}
 {backmatter}
-
-
-# Mapping Summary
-
-This table serves as a non-normative summary of the DNST mapping for SVCB.
-
-|                                  |                                        |
-| -------------------------------- | -------------------------------------- |
-| **Mapped scheme**                | "dns"                                  |
-| **RR type**                      | DNST (TBD)                             |
-| **Name prefix**                  | `_dns` for port 53, else `_$PORT._dns` |
-| **Required keys**                | `alpn`                                 |
-| **Automatically Mandatory Keys** | `port`                                 |
-| **Special behaviors**            | TBD                                    |
 
 
 # Acknowledgments
