@@ -9,7 +9,7 @@ when, and only when, they appear in all capitals, as shown here.
 
 # Background
 
-DNS over TLS is defined in FIXME. However, there is no explicit signaling for when DoT should be used. Without explicit signaling, there is no protection against downgrade attacks by an on-path attacker.
+DNS over TLS is defined in [@!RFC7858]. However, there is no explicit signaling for when DoT should be used. Without explicit signaling, there is no protection against downgrade attacks by an on-path attacker.
 
 # Remove Before Publication
 Notes on design decisions, including the decision NOT to use an SVCB-compatible format:
@@ -21,11 +21,15 @@ Notes on design decisions, including the decision NOT to use an SVCB-compatible 
 * There is no need for DoH, since the expected clients are limited to DNS resolvers.
 
 # DNS Transport RRTYPE
-The solution to this problem is to introduce a method for explicit signaling for when DoT is available. When combined with TLSA records for the corresponding DNS server name, any client wishing to use DoT is able to know that it is available, and can detect and avoid any attempts at transport downgrade.
+The solution to this problem is to introduce a method for explicit signaling for when DoT is available. When combined with TLSA [@!RFC6698] records for the corresponding DNS server name, any client wishing to use DoT is able to know that it is available, and can detect and avoid any attempts at transport downgrade.
 
 This document defines the RRTYPE value {TBD} with mnemonic name DNST ("DNS Transport").
 This consists of a set of flags indicating supported transport for the DNS server at the owner name.
-The flag bits represent transports UDP on port 53, TCP on port 53, and DoT (DNS over TLS on port 853).
+The flag bits represent transports:
+
+* UDP on port 53
+* TCP on port 53
+* DoT (DNS over TLS) on port 853
 
 # Restrictions
 The DNST record may occur anywhere, including at the apex of a DNS zone, and may co-exist with any other type that also permits other types.
