@@ -68,13 +68,13 @@ Table of Contents
    6.  Restrictions  . . . . . . . . . . . . . . . . . . . . . . . .   3
    7.  Wire Format . . . . . . . . . . . . . . . . . . . . . . . . .   3
    8.  Presentation Format . . . . . . . . . . . . . . . . . . . . .   3
-   9.  Additional Processing . . . . . . . . . . . . . . . . . . . .   3
+   9.  Additional Processing . . . . . . . . . . . . . . . . . . . .   4
    10. Security Considerations . . . . . . . . . . . . . . . . . . .   4
    11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
    12. Normative References  . . . . . . . . . . . . . . . . . . . .   4
    13. Informative References  . . . . . . . . . . . . . . . . . . .   4
    Appendix A.  Acknowledgments  . . . . . . . . . . . . . . . . . .   4
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   4
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   5
 
 1.  Introduction
 
@@ -88,7 +88,7 @@ Table of Contents
 
 3.  Background
 
-   DNS over TLS is defined in FIXME.  However, there is no explicit
+   DNS over TLS is defined in [RFC7858].  However, there is no explicit
    signaling for when DoT should be used.  Without explicit signaling,
    there is no protection against downgrade attacks by an on-path
    attacker.
@@ -123,16 +123,21 @@ Internet-Draft                DNS Transport                 October 2021
 5.  DNS Transport RRTYPE
 
    The solution to this problem is to introduce a method for explicit
-   signaling for when DoT is available.  When combined with TLSA records
-   for the corresponding DNS server name, any client wishing to use DoT
-   is able to know that it is available, and can detect and avoid any
-   attempts at transport downgrade.
+   signaling for when DoT is available.  When combined with TLSA
+   [RFC6698] records for the corresponding DNS server name, any client
+   wishing to use DoT is able to know that it is available, and can
+   detect and avoid any attempts at transport downgrade.
 
    This document defines the RRTYPE value {TBD} with mnemonic name DNST
    ("DNS Transport").  This consists of a set of flags indicating
    supported transport for the DNS server at the owner name.  The flag
-   bits represent transports UDP on port 53, TCP on port 53, and DoT
-   (DNS over TLS on port 853).
+   bits represent transports:
+
+   *  UDP on port 53
+
+   *  TCP on port 53
+
+   *  DoT (DNS over TLS) on port 853
 
 6.  Restrictions
 
@@ -152,12 +157,7 @@ Internet-Draft                DNS Transport                 October 2021
 
    At least one of the transport types must be present.
 
-9.  Additional Processing
 
-   The authoritative server MAY/SHOULD return both the DNST record(s)
-   and any/all A and AAAA records with the same owner name.  This
-   reduces the number of queries the resolver would otherwise have to
-   make (i.e. two additional queries for A and AAAA record types).
 
 
 
@@ -170,6 +170,13 @@ Dickson                   Expires 27 April 2022                 [Page 3]
 Internet-Draft                DNS Transport                 October 2021
 
 
+9.  Additional Processing
+
+   The authoritative server MAY/SHOULD return both the DNST record(s)
+   and any/all A and AAAA records with the same owner name.  This
+   reduces the number of queries the resolver would otherwise have to
+   make (i.e. two additional queries for A and AAAA record types).
+
 10.  Security Considerations
 
    The DNST record MUST be in a DNSSEC-signed zone.  This ensures
@@ -181,6 +188,16 @@ Internet-Draft                DNS Transport                 October 2021
    the entry "DNST" with value "TBD", referencing this document.
 
 12.  Normative References
+
+   [RFC6698]  Hoffman, P. and J. Schlyter, "The DNS-Based Authentication
+              of Named Entities (DANE) Transport Layer Security (TLS)
+              Protocol: TLSA", RFC 6698, DOI 10.17487/RFC6698, August
+              2012, <https://www.rfc-editor.org/info/rfc6698>.
+
+   [RFC7858]  Hu, Z., Zhu, L., Heidemann, J., Mankin, A., Wessels, D.,
+              and P. Hoffman, "Specification for DNS over Transport
+              Layer Security (TLS)", RFC 7858, DOI 10.17487/RFC7858, May
+              2016, <https://www.rfc-editor.org/info/rfc7858>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -200,6 +217,14 @@ Appendix A.  Acknowledgments
 
    Thanks to Dan York for his Tutorial on using Markdown (specificially
    mmark) for writing IETF drafts.
+
+
+
+
+Dickson                   Expires 27 April 2022                 [Page 4]
+
+Internet-Draft                DNS Transport                 October 2021
+
 
    Thanks to YOUR NAME HERE for contributions, reviews, etc.
 
@@ -221,4 +246,35 @@ Author's Address
 
 
 
-Dickson                   Expires 27 April 2022                 [Page 4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Dickson                   Expires 27 April 2022                 [Page 5]

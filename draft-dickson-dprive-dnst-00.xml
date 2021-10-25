@@ -30,7 +30,7 @@ when, and only when, they appear in all capitals, as shown here.</t>
 </section>
 
 <section anchor="background"><name>Background</name>
-<t>DNS over TLS is defined in FIXME. However, there is no explicit signaling for when DoT should be used. Without explicit signaling, there is no protection against downgrade attacks by an on-path attacker.</t>
+<t>DNS over TLS is defined in <xref target="RFC7858"></xref>. However, there is no explicit signaling for when DoT should be used. Without explicit signaling, there is no protection against downgrade attacks by an on-path attacker.</t>
 </section>
 
 <section anchor="remove-before-publication"><name>Remove Before Publication</name>
@@ -46,10 +46,16 @@ when, and only when, they appear in all capitals, as shown here.</t>
 </section>
 
 <section anchor="dns-transport-rrtype"><name>DNS Transport RRTYPE</name>
-<t>The solution to this problem is to introduce a method for explicit signaling for when DoT is available. When combined with TLSA records for the corresponding DNS server name, any client wishing to use DoT is able to know that it is available, and can detect and avoid any attempts at transport downgrade.</t>
+<t>The solution to this problem is to introduce a method for explicit signaling for when DoT is available. When combined with TLSA <xref target="RFC6698"></xref> records for the corresponding DNS server name, any client wishing to use DoT is able to know that it is available, and can detect and avoid any attempts at transport downgrade.</t>
 <t>This document defines the RRTYPE value {TBD} with mnemonic name DNST (&quot;DNS Transport&quot;).
 This consists of a set of flags indicating supported transport for the DNS server at the owner name.
-The flag bits represent transports UDP on port 53, TCP on port 53, and DoT (DNS over TLS on port 853).</t>
+The flag bits represent transports:</t>
+
+<ul>
+<li>UDP on port 53</li>
+<li>TCP on port 53</li>
+<li>DoT (DNS over TLS) on port 853</li>
+</ul>
 </section>
 
 <section anchor="restrictions"><name>Restrictions</name>
@@ -86,6 +92,8 @@ The flag bits represent transports UDP on port 53, TCP on port 53, and DoT (DNS 
 
 <back>
 <references><name>Normative References</name>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6698.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7858.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
 </references>
 <references><name>Informative References</name>
