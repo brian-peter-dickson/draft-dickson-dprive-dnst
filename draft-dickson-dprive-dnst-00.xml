@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- name="GENERATOR" content="github.com/mmarkdown/mmark Mmark Markdown Processor - mmark.miek.nl" -->
+<rfc version="3" ipr="trust200902" docName="draft-dickson-dprive-dnst-00" submissionType="IETF" category="std" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" indexInclude="false" consensus="true">
+
+<front>
+<title abbrev="DNS Transport">Resource Record for Signaling Transport for DNS to Authority Servers</title><seriesInfo value="draft-dickson-dprive-dnst-00" stream="IETF" status="standard" name="Internet-Draft"></seriesInfo>
+<author initials="B." surname="Dickson" fullname="Brian Dickson"><organization>GoDaddy</organization><address><postal><street></street>
+</postal><email>brian.peter.dickson@gmail.com</email>
+</address></author><date/>
+<area>Internet</area>
+<workgroup></workgroup>
+
+<abstract>
+<t>This Internet Draft proposes an RRTYPE to signal explicit support for transport types for DNS service. This new RRTYPE is &quot;DNST&quot;.
+The available transports to signal are TCP and UDP on port 53 (DNS), and DoT (DNS over TLS) transport using TCP port 853.</t>
+</abstract>
+
+</front>
+
+<middle>
+
+<section anchor="introduction"><name>Introduction</name>
+</section>
+
+<section anchor="conventions-and-definitions"><name>Conventions and Definitions</name>
+<t>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;,
+&quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;NOT RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this
+document are to be interpreted as described in BCP 14 <xref target="RFC2119"></xref> <xref target="RFC8174"></xref>
+when, and only when, they appear in all capitals, as shown here.</t>
+</section>
+
+<section anchor="background"><name>Background</name>
+<t>DNS over TLS is defined in FIXME. However, there is no explicit signaling for when DoT should be used. Without explicit signaling, there is no protection against downgrade attacks by an on-path attacker.</t>
+</section>
+
+<section anchor="remove-before-publication"><name>Remove Before Publication</name>
+<t>Notes on design decisions, including the decision NOT to use an SVCB-compatible format:</t>
+
+<ul>
+<li>NS records MUST point to non-CNAME records. Thus, there is no need for the SVCB &quot;Alias-form&quot; behavior. DNST does not support aliasing,</li>
+<li>DNST allows for explicit rejection of default transport (UDP/53 and TCP/53)</li>
+<li>DNST allows explicit signaling of DoT</li>
+<li>There is no need for alternate port numbers for UDP or TCP port 53, or for DoT port 853.</li>
+<li>There is no need for DoH, since the expected clients are limited to DNS resolvers.</li>
+</ul>
+</section>
+
+<section anchor="dns-transport-rrtype"><name>DNS Transport RRTYPE</name>
+<t>The solution to this problem is to introduce a method for explicit signaling for when DoT is available. When combined with TLSA records for the corresponding DNS server name, any client wishing to use DoT is able to know that it is available, and can detect and avoid any attempts at transport downgrade.</t>
+<t>This document defines the RRTYPE value {TBD} with mnemonic name DNST (&quot;DNS Transport&quot;).
+This consists of a set of flags indicating supported transport for the DNS server at the owner name.
+The flag bits represent transports UDP on port 53, TCP on port 53, and DoT (DNS over TLS on port 853).</t>
+</section>
+
+<section anchor="restrictions"><name>Restrictions</name>
+<t>The DNST record may occur anywhere, including at the apex of a DNS zone, and may co-exist with any other type that also permits other types.</t>
+</section>
+
+<section anchor="wire-format"><name>Wire Format</name>
+<t>The RDATA wire format is an 8-bit octet of flag bits.</t>
+
+<artwork>| UDP | TCP | DOT | 5 unused bits |
+</artwork>
+</section>
+
+<section anchor="presentation-format"><name>Presentation Format</name>
+
+<artwork>OWNER CLASS TTL DNST [UDP] [TCP] [DOT]
+</artwork>
+<t>At least one of the transport types must be present.</t>
+</section>
+
+<section anchor="additional-processing"><name>Additional Processing</name>
+<t>The authoritative server MAY/SHOULD return both the DNST record(s) and any/all A and AAAA records with the same owner name. This reduces the number of queries the resolver would otherwise have to make (i.e. two additional queries for A and AAAA record types).</t>
+</section>
+
+<section anchor="security-considerations"><name>Security Considerations</name>
+<t>The DNST record MUST be in a DNSSEC-signed zone. This ensures protection against downgrade attacks on the transport signaling.</t>
+</section>
+
+<section anchor="iana-considerations"><name>IANA Considerations</name>
+<t>IANA is directed to add a new record to the DNS RRTYPES table to add the entry &quot;DNST&quot; with value &quot;TBD&quot;, referencing this document.</t>
+</section>
+
+</middle>
+
+<back>
+<references><name>Normative References</name>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
+</references>
+<references><name>Informative References</name>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+</references>
+
+<section anchor="acknowledgments"><name>Acknowledgments</name>
+<t>Thanks to everyone who helped create the tools that let everyone use Markdown to create
+Internet Drafts, and the RFC Editor for xml2rfc.</t>
+<t>Thanks to Dan York for his Tutorial on using Markdown (specificially mmark) for writing IETF drafts.</t>
+<t>Thanks to YOUR NAME HERE for contributions, reviews, etc.</t>
+</section>
+
+</back>
+
+</rfc>
